@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KXVisuals — креативний монтаж та AI-відео</title>
+  <meta name="description" content="KXVisuals — професійний відеомонтаж та AI-відео. Поєднуємо креативність і технології, щоб створювати контент, який привертає увагу та допомагає продавати." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+  <style>
+    /* ======================================= */
+    /* === ЧОРНО-ЧЕРВОНО-БІЛА СХЕМА СТИЛІВ === */
+    /* ======================================= */
+
+    :root{
+      --bg: #000000; /* Чорний Фон */
+      --card: #0b0b0b; /* Трохи світліший чорний для карток */
+      --muted: #a3a7b7; /* Сірий для допоміжного тексту */
+      --text: #ffffff; /* Білий для основного тексту */
+      --accent: #FF0033; /* Яскравий Червоний */
+      --accent-2: #E0002A; /* Темніший червоний для градієнтів/тіней */
+      --ring: rgba(255, 0, 51, .4); /* Червоний для фокусу */
+      --border: rgba(255,255,255,.1); /* Світла лінія для кордонів */
+      --font-main: 'Space Grotesk', system-ui, -apple-system, Segoe UI, sans-serif;
+      --font-display: 'Archivo Black', 'Space Grotesk', sans-serif;
+    }
+    *{box-sizing:border-box}
+    /* Використовуємо 'Inter' як основний шрифт, як ви підключили */
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font-main)}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(1120px, 100%);margin-inline:auto;padding-inline:20px}
+
+
+    h1,h2,h3,.brand,.stat .v,.footer-wordmark{
+      font-family:var(--font-display);
+      text-transform:uppercase;
+      letter-spacing:-0.04em;
+    }
+    p,li,a,input,select,textarea,label,button{letter-spacing:-0.015em}
+    .eyebrow{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+    /* === Кнопки та Пилюлі (Pill) === */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.45rem;border-radius:999px;background:var(--accent);color:#fff;font-weight:800;border:none;cursor:pointer;text-transform:uppercase;font-size:.86rem;letter-spacing:.08em;
+        box-shadow:0 8px 24px rgba(255,0,51,.35); /* Червона тінь */
+        transition:transform .15s ease, box-shadow .15s ease, background .15s ease}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(255,0,51,.6); background:var(--accent-2);}
+    .btn.outline{background:transparent;border:1px solid var(--border);color:var(--text);box-shadow:none}
+    .btn.outline:hover{background:rgba(255,255,255,.05); box-shadow:none;}
+    .pill{padding:.38rem .85rem;border:1px solid var(--border);border-radius:999px;font-size:.78rem;color:var(--muted); text-transform:uppercase; letter-spacing:.12em;font-weight:700;}
+
+    /* === Соціальні кнопки === */
+    .social-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .social-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.55rem;
+      min-height:42px;
+      padding:.72rem 1rem;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:700;
+      font-size:.94rem;
+      transition:transform .15s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
+    }
+    .social-btn svg{width:18px;height:18px;flex-shrink:0}
+    .social-btn:hover{
+      transform:translateY(-2px);
+      border-color:var(--accent);
+      background:rgba(255,0,51,.12);
+      box-shadow:0 10px 26px rgba(255,0,51,.18);
+    }
+    .social-btn.primary-social{
+      background:var(--accent);
+      border-color:var(--accent);
+      box-shadow:0 8px 24px rgba(255,0,51,.35);
+    }
+    .social-btn.primary-social:hover{background:var(--accent-2);box-shadow:0 12px 28px rgba(255,0,51,.5)}
+    .hero-socials{margin-top:18px}
+    .contact-strip{
+      margin-top:22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      padding:18px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:linear-gradient(135deg, rgba(255,0,51,.12), rgba(255,255,255,.03));
+    }
+    .contact-strip strong{display:block;color:var(--text);font-size:1.05rem;margin-bottom:4px}
+    .contact-strip span{color:var(--muted);font-size:.95rem}
+
+
+    /* === Шапка (Header) === */
+    header.site{position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(12px);background:rgba(0,0,0,.7);border-bottom:1px solid var(--border)}
+    header .wrap{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.5px; font-size:1.2rem;}
+    /* Логотип - тепер чистий квадрат з червоним акцентом */
+
+    nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1rem;flex-wrap:wrap}
+    nav a{padding:.55rem .8rem;border-radius:4px;color:var(--muted);transition:color .15s ease, background .15s ease}
+    nav a:hover{background:var(--card);color:var(--text); border-bottom:2px solid var(--accent);}
+
+    /* === Hero Section === */
+    .hero{position:relative;isolation:isolate}
+    .hero::before{content:'';position:absolute;inset:-80px -20px -40px;z-index:-1;background:
+      radial-gradient(40% 30% at 20% 10%, rgba(255,0,51,.2), transparent 60%), /* Червоне сяйво */
+      radial-gradient(50% 40% at 80% 20%, rgba(255,0,51,.2), transparent 60%)} /* Червоне сяйво */
+    .hero .inner{padding:80px 0 40px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px; align-items:center;}
+    .hero h1{font-size:clamp(42px, 7vw, 92px);line-height:.92;margin:0 0 22px;font-weight:900;letter-spacing:-0.07em;}
+    .hero p{font-size:1.15rem;color:#c9ccda;margin:0 0 26px}
+    .hero .actions{display:flex;gap:.8rem;flex-wrap:wrap}
+    .hero .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+    .hero .art{align-self:center}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:32px 0 0; border:1px solid var(--border); border-radius:8px; overflow:hidden;}
+    .stat{border:none;background:var(--card);padding:18px 18px; text-align:center;}
+    .stat .v{font-weight:800;font-size:1.6rem; color:var(--accent);} /* Червоні числа */
+    .stat .k{color:var(--muted);font-size:.9rem}
+
+    section{padding:72px 0}
+    .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:12px;flex-wrap:wrap}
+    .section-head h2{margin:0;font-size:clamp(34px,5vw,64px); font-weight:900;line-height:.92;}
+
+    /* === CTA Section (Створення відео) === */
+    .cta{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+    .cta .pane{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px; display:flex; flex-direction:column; justify-content:space-between;}
+    .cta h3{margin:6px 0 10px;font-size:1.5rem; font-weight:700;}
+    .cta ul{margin:10px 0 0 18px;color:#c9ccda}
+    .cta li{margin:.35rem 0}
+
+    /* === Форма (Order Section) === */
+    .form-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px}
+    form{display:grid;gap:16px}
+    /* Стиль для Label у звичайному полі */
+    label{font-weight:600;font-size:.95rem; color:var(--text);}
+    .field{display:flex;flex-direction:column;gap:.45rem}
+    input:not([type="checkbox"]),select,textarea{background:#0a0a0a;border:1px solid rgba(255,255,255,.2);color:var(--text);padding:.9rem 1rem;border-radius:6px;outline:none;width:100%; transition:border-color .15s ease, box-shadow .15s ease}
+    input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+    textarea{min-height:140px;resize:vertical}
+    .form-meta{font-size:.95rem;color:var(--muted)}
+    
+    /* === Стилі для чекбоксів (Послуги) - ТЕПЕР DROPDOWN === */
+    .service-toggle-trigger {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background:#0a0a0a;
+        border:1px solid rgba(255,255,255,.2);
+        padding:.9rem 1rem;
+        border-radius:6px;
+        margin-bottom: 0; 
+        font-weight: 600; /* Match original label font-weight */
+        font-size:.95rem; /* Match original label font-size */
+        color: var(--text);
+        outline: none; /* Для фокусу через Tab */
+    }
+    /* Фокус і ховер на полі-тригері */
+    .service-toggle-trigger:focus, .service-toggle-trigger:hover {
+        border-color: var(--accent);
+        box-shadow:0 0 0 3px var(--ring);
+    }
+
+    .service-toggle-trigger .toggle-arrow {
+        transition: transform .2s ease;
+    }
+    .service-toggle-trigger.open .toggle-arrow {
+        transform: rotate(180deg);
+    }
+    .checkbox-dropdown {
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        padding: 1rem;
+        border: 1px solid var(--border); 
+        border-top: none; /* Візуально приєднуємо до тригера */
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        background: var(--card); /* Темніший фон для випадаючого списку */
+        z-index: 10;
+        position: relative;
+        max-height: 250px;
+        overflow-y: auto;
+    }
+    .checkbox-dropdown.open {
+        display: flex;
+    }
+    .checkbox-label{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        color: var(--text);
+        font-weight: 400; 
+        font-size:.95rem;
+    }
+    .checkbox-label input[type="checkbox"]{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255,255,255,.4);
+        border-radius: 4px;
+        background-color: transparent;
+        transition: background-color .15s ease, border-color .15s ease;
+        cursor: pointer;
+        position: relative;
+        flex-shrink: 0;
+    }
+    .checkbox-label input[type="checkbox"]:checked{
+        background-color: var(--accent); /* Червоний, коли вибрано */
+        border-color: var(--accent);
+    }
+    .checkbox-label input[type="checkbox"]:checked::after{
+        content: '✓';
+        color: white;
+        font-size: 14px;
+        position: absolute;
+        top: -1px;
+        left: 3px;
+        font-weight: 800;
+    }
+    /* === Кінець стилів для чекбоксів === */
+
+
+    
+
+    /* === Premium Footer === */
+    footer{border-top:1px solid var(--border);padding:0;color:var(--muted);background:
+      radial-gradient(70% 70% at 50% 0%, rgba(255,0,51,.18), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,.035), rgba(0,0,0,0));
+    }
+    .premium-footer{padding:72px 0 34px}
+    .footer-top{display:grid;grid-template-columns:1.3fr .7fr;gap:36px;align-items:start;border-bottom:1px solid var(--border);padding-bottom:42px}
+    .footer-wordmark{font-size:clamp(54px, 12vw, 150px);line-height:.78;color:#fff;margin:0;letter-spacing:-.08em}
+    .footer-subtitle{max-width:540px;margin:22px 0 0;color:#d8d8d8;font-size:1.05rem;line-height:1.55}
+    .footer-info{display:grid;gap:18px;justify-items:start}
+    .footer-info-block{border:1px solid var(--border);border-radius:18px;padding:16px 18px;background:rgba(255,255,255,.035);width:100%}
+    .footer-info-block small{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;font-weight:800;margin-bottom:7px}
+    .footer-info-block strong{display:block;color:#fff;font-size:1.08rem}
+    .footer-socials{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:26px}
+    .footer-socials a{border:1px solid var(--border);border-radius:999px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#070707;color:#fff;font-weight:800;text-transform:uppercase;font-size:.82rem;letter-spacing:.1em;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+    .footer-socials a:hover{transform:translateY(-3px);border-color:var(--accent);background:rgba(255,0,51,.12)}
+    .footer-socials svg{width:20px;height:20px;flex-shrink:0;color:var(--accent)}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:26px;font-size:.9rem}
+    .footer-mini-nav{display:flex;gap:10px;flex-wrap:wrap}
+    .footer-mini-nav a{color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.1em;font-size:.78rem;transition:color .15s ease}
+    .footer-mini-nav a:hover{color:#fff}
+    @media (max-width: 800px){
+      .footer-top{grid-template-columns:1fr}
+      .footer-socials{grid-template-columns:1fr}
+      .premium-footer{padding-top:52px}
+    }
+
+
+    /* === DatePicker (стилізація під червоний) === */
+    .date-input{position:relative}
+    /* СТИЛІЗАЦІЯ ДЛЯ ТЕКСТОВОГО ПОЛЯ КАЛЕНДАРЯ ЯК ЗВИЧАЙНОГО INPUT */
+    .date-display{cursor:pointer;background:#0a0a0a} 
+    .datepicker{position:absolute;inset:auto auto auto 0;top:calc(100% + 8px);z-index:50;
+      width:min(360px, calc(100vw - 32px));
+      background:var(--card);border:1px solid var(--border);border-radius:8px;
+      box-shadow:0 10px 25px rgba(0,0,0,.7);padding:14px;display:none}
+    .datepicker.open{display:block}
+    .dp-title{font-weight:700;margin:2px 4px 10px;color:var(--text)}
+    .dp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .dp-nav{display:flex;gap:6px}
+    .dp-header button{background:rgba(255,255,255,.1);border:none;color:#fff;padding:6px 10px;border-radius:4px;cursor:pointer}
+    .dp-header button:disabled{opacity:.45;cursor:not-allowed}
+    .dp-month{font-weight:700;text-transform:capitalize}
+
+    .dp-daynames,.dp-grid{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}
+    .dp-daynames{color:var(--muted);font-size:.8rem;margin:0 4px 6px}
+    .dp-cell{padding:10px 0;border-radius:4px;cursor:pointer;user-select:none; transition:background .15s ease}
+    .dp-cell:hover{background:rgba(255,255,255,.1)}
+    .dp-cell.muted{opacity:.35;cursor:default}
+    .dp-cell.disabled{opacity:.35;cursor:not-allowed}
+    .dp-cell.selected{background:var(--accent);color:#fff;font-weight:800} /* Червона вибрана дата */
+    .dp-actions{display:flex;justify-content:flex-end;margin-top:10px}
+    .dp-actions .btn{padding:.6rem .9rem;border-radius:6px}
+
+    /* === Кастомізація скролбару (WebKit) === */
+    /* Зробить його червоним та прозорим */
+    ::-webkit-scrollbar {
+      width: 8px; /* Ширина скролбару */
+      height: 8px; /* Висота для горизонтального скролбару */
+      background: transparent; /* Фон скролбару прозорий */
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--accent); /* Колір повзунка: Яскравий Червоний */
+      border-radius: 4px; /* Заокруглені кути повзунка */
+      border: 1px solid var(--card); /* Невелика облямівка кольору фону карток */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: var(--accent-2); /* Темніший червоний при наведенні */
+    }
+
+    /* === СТИЛІ ДЛЯ ЧЕРВОНИХ СТРІЛОК (Кількість відео) === */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      opacity: 1; 
+      width: 1.5rem; 
+      height: 100%;
+      margin: 0;
+      cursor: pointer;
+      /* Використовуємо фільтр, щоб зробити нативні стрілки червоними */
+      filter: invert(10%) sepia(100%) saturate(1000%) hue-rotate(330deg) brightness(120%) contrast(100%);
+      border-left: 1px solid rgba(255,255,255,.1); 
+    }
+    input[type="number"]:focus::-webkit-inner-spin-button,
+    input[type="number"]:focus::-webkit-outer-spin-button {
+      filter: invert(10%) sepia(100%) saturate(1000%) hue-rotate(330deg) brightness(120%) contrast(100%);
+    }
+    input[type="number"] {
+      -moz-appearance: textfield; 
+    }
+
+
+
+    .pricing-card,.form-card,.hero .card,.cta .pane{backdrop-filter:blur(10px)}
+    .brand span:last-child{font-family:var(--font-display);letter-spacing:-.05em}
+
+    /* === Адаптивність (Media Queries) === */
+    @media (max-width: 900px){
+      .hero .inner{grid-template-columns:1fr; text-align:center;}
+      .hero .art{order:-1; margin-bottom:20px;}
+      .hero .actions{justify-content:center}
+      .cta{grid-template-columns:1fr}
+      /* Адаптуємо відео-ряд під мобільні - продовжуємо скролити, але робимо їх меншими */
+      .video-row iframe {
+        width: 180px; 
+        height: 320px;
+      }
+    }
+    @media (max-width: 600px){
+      header .wrap{flex-direction:column;gap:.8rem}
+      nav ul{justify-content:center}
+      .social-links{justify-content:center}
+      .social-btn{width:100%;max-width:260px}
+      .stats{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 480px){
+      .stats{grid-template-columns:1fr; border:none; gap:12px;}
+      .stat{border:1px solid var(--border); padding:16px;}
+    }
+
+    /* ======================================================== */
+    /* === ДОДАТКОВІ СТИЛІ ДЛЯ СЕКЦІЙ === */
+    /* ======================================================== */
+
+    /* Умови співпраці */
+    .cooperation-text-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0;
+      color: var(--text);
+      font-family: inherit;
+    }
+    .cooperation-text-container h2 {
+      font-size: clamp(22px, 3vw, 28px);
+      margin-bottom: 25px;
+      color: var(--text);
+      font-weight: 700;
+    }
+    .cooperation-text-container p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: var(--muted);
+    }
+    .cooperation-text-container strong {
+      color: var(--accent); /* Червоний акцент на ключових словах */
+      font-weight: 600;
+    }
+    .cooperation-list {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 25px;
+    }
+    .cooperation-list li {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      color: var(--text);
+      line-height: 1.5;
+      position: relative;
+      padding-left: 35px;
+    }
+    .cooperation-list li::before {
+      content: "★"; /* Стильний червоний маркер */
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 1.1rem;
+      top: 0;
+      font-weight: 800;
+    }
+
+    /* Приклади робіт */
+    .video-row {
+      display: flex;
+      gap: 20px;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: auto; /* горизонтальний скрол */
+      padding: 10px 0;
+    }
+    .video-row iframe {
+      width: 250px;     /* ширина під Shorts */
+      height: 444px;    /* висота під 9:16 */
+      border-radius: 10px;
+      border: none;
+      flex-shrink: 0;   /* не зменшується при скролі */
+    }
+
+    /* Тарифи */
+    .pricing-plans-container {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .pricing-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      width: 100%;
+    }
+    .pricing-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      padding: 25px;
+      width: min(350px, 100%);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--text);
+      text-align: left;
+    }
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 0, 51, 0.3); /* Червоний акцент при наведенні */
+      border-color: var(--accent);
+    }
+    .card-header h3 {
+      font-size: 22px;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+    .card-header p {
+      font-size: 24px;
+      margin-top: 5px;
+      font-weight: 800;
+      color: var(--accent); /* Червона ціна */
+    }
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+      flex-grow: 1; /* Для вирівнювання кнопок внизу */
+    }
+    .features-list li {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      line-height: 1.4;
+    }
+    .check-icon {
+      font-size: 1.2rem;
+      margin-right: 10px;
+      color: var(--accent); /* Червона галочка */
+      text-shadow: none;
+      line-height: 1.1;
+    }
+
+
+    /* === Dynamic layer: рух, глибина, premium agency feel === */
+    html{scroll-behavior:smooth}
+    body{overflow-x:hidden}
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:-3;
+      background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:64px 64px;mask-image:radial-gradient(circle at 50% 20%, #000 0 35%, transparent 78%);
+      animation:gridFloat 18s linear infinite;
+    }
+    @keyframes gridFloat{from{background-position:0 0,0 0}to{background-position:64px 64px,64px 64px}}
+    .noise-layer{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.045;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
+    .cursor-glow{position:fixed;width:360px;height:360px;border-radius:50%;pointer-events:none;z-index:-2;background:radial-gradient(circle, rgba(255,0,51,.22), transparent 64%);filter:blur(4px);transform:translate(-50%,-50%);opacity:.75;transition:opacity .2s ease}
+    .hero::after{content:'';position:absolute;right:4%;top:12%;width:180px;height:180px;border:1px solid rgba(255,255,255,.14);border-radius:50%;z-index:-1;animation:orbSpin 9s linear infinite;box-shadow:0 0 60px rgba(255,0,51,.16) inset}
+    @keyframes orbSpin{to{transform:rotate(360deg)}}
+    .hero .card{transform-style:preserve-3d;animation:cardFloat 5.5s ease-in-out infinite;border-radius:22px;overflow:hidden;position:relative}
+    .hero .card::after{content:'';position:absolute;inset:-40%;background:linear-gradient(115deg, transparent 35%, rgba(255,255,255,.18), transparent 65%);transform:translateX(-60%);animation:shine 5.8s ease-in-out infinite}
+    @keyframes cardFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-12px) rotate(1deg)}}
+    @keyframes shine{0%,55%{transform:translateX(-65%)}75%,100%{transform:translateX(65%)}}
+    .btn,.social-btn,.pricing-card,.cta .pane,.form-card,.footer-info-block,.stat{will-change:transform}
+    .pricing-card,.cta .pane,.form-card,.footer-info-block,.stat{transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease,background .28s ease}
+    .pricing-card:hover,.cta .pane:hover,.footer-info-block:hover,.stat:hover{transform:translateY(-7px);border-color:rgba(255,0,51,.58);box-shadow:0 22px 70px rgba(255,0,51,.14);background:linear-gradient(180deg, rgba(255,0,51,.08), rgba(255,255,255,.035))}
+    .btn:hover,.social-btn:hover{transform:translateY(-3px) scale(1.025)}
+    .dynamic-marquee{border-block:1px solid var(--border);overflow:hidden;background:rgba(255,255,255,.025);margin-top:26px}
+    .marquee-track{display:flex;width:max-content;animation:marqueeMove 24s linear infinite}
+    .marquee-track span{font-family:var(--font-display);font-size:clamp(32px,5vw,72px);line-height:1;white-space:nowrap;text-transform:uppercase;letter-spacing:-.06em;padding:24px 18px;color:#fff}
+    .marquee-track b{color:var(--accent);font-weight:inherit}
+    @keyframes marqueeMove{to{transform:translateX(-50%)}}
+    .reveal{opacity:0;transform:translateY(34px);filter:blur(8px);transition:opacity .75s ease,transform .75s ease,filter .75s ease}
+    .reveal.is-visible{opacity:1;transform:translateY(0);filter:blur(0)}
+    .reveal:nth-child(2){transition-delay:.08s}.reveal:nth-child(3){transition-delay:.14s}.reveal:nth-child(4){transition-delay:.2s}
+    .footer-wordmark{background:linear-gradient(90deg,#fff 0%,#fff 35%,var(--accent) 52%,#fff 70%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:textGlint 6s ease-in-out infinite}
+    @keyframes textGlint{0%,60%{background-position:0% 50%}100%{background-position:200% 50%}}
+    .footer-socials a{position:relative;overflow:hidden}
+    .footer-socials a::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transform:translateX(-100%);transition:transform .45s ease}
+    .footer-socials a:hover::before{transform:translateX(100%)}
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none;filter:none}.cursor-glow{display:none}}
+
+  </style>
+  
+
+
+  <style id="neon-pulse-upgrade">
+    /* === Neon Pulse Upgrade: блоки більше не зливаються з фоном === */
+    :root{
+      --neon-red: rgba(255, 0, 51, .78);
+      --neon-red-soft: rgba(255, 0, 51, .18);
+      --neon-red-deep: rgba(255, 0, 51, .08);
+    }
+
+    @keyframes neonPulseSeven {
+      0%{
+        border-color:rgba(255,0,51,.72);
+        box-shadow:
+          0 0 0 1px rgba(255,0,51,.32),
+          0 0 22px rgba(255,0,51,.34),
+          0 0 70px rgba(255,0,51,.13),
+          inset 0 0 26px rgba(255,0,51,.055);
+      }
+      62%{
+        border-color:rgba(255,0,51,.72);
+        box-shadow:
+          0 0 0 1px rgba(255,0,51,.32),
+          0 0 22px rgba(255,0,51,.34),
+          0 0 70px rgba(255,0,51,.13),
+          inset 0 0 26px rgba(255,0,51,.055);
+      }
+      72%{
+        border-color:rgba(255,0,51,.18);
+        box-shadow:
+          0 0 0 1px rgba(255,0,51,.06),
+          0 0 8px rgba(255,0,51,.08),
+          0 0 30px rgba(255,0,51,.035),
+          inset 0 0 10px rgba(255,0,51,.018);
+      }
+      100%{
+        border-color:rgba(255,255,255,.11);
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,.02),
+          0 0 2px rgba(255,0,51,.02),
+          inset 0 0 0 rgba(255,0,51,0);
+      }
+    }
+
+    @keyframes neonSweepSeven {
+      0%,62%{opacity:.58;transform:translateX(-15%) rotate(8deg)}
+      72%,100%{opacity:0;transform:translateX(110%) rotate(8deg)}
+    }
+
+    @keyframes neonDotPulse {
+      0%,62%{opacity:1;filter:drop-shadow(0 0 10px rgba(255,0,51,.85))}
+      72%,100%{opacity:.28;filter:drop-shadow(0 0 2px rgba(255,0,51,.18))}
+    }
+
+    .hero .card,
+    .cta .pane,
+    .form-card,
+    .pricing-card,
+    .footer-info-block,
+    .stat,
+    .cooperation-text-container,
+    .video-row a,
+    .service-toggle-trigger,
+    .checkbox-dropdown{
+      position:relative;
+      border-color:rgba(255,0,51,.34)!important;
+      background:
+        linear-gradient(180deg, rgba(255,0,51,.045), rgba(255,255,255,.028)),
+        var(--card)!important;
+      animation:neonPulseSeven 7s ease-in-out infinite;
+    }
+
+    .hero .card::before,
+    .cta .pane::before,
+    .form-card::before,
+    .pricing-card::before,
+    .footer-info-block::before,
+    .stat::before,
+    .cooperation-text-container::before,
+    .video-row a::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      border-radius:inherit;
+      background:linear-gradient(110deg, transparent 0%, rgba(255,0,51,.16) 42%, rgba(255,255,255,.12) 50%, rgba(255,0,51,.12) 58%, transparent 100%);
+      opacity:.45;
+      mix-blend-mode:screen;
+      transform:translateX(-35%) rotate(8deg);
+      animation:neonSweepSeven 7s ease-in-out infinite;
+    }
+
+    .cooperation-text-container{
+      border:1px solid rgba(255,0,51,.34);
+      border-radius:24px;
+      padding:28px;
+      overflow:hidden;
+    }
+
+    .video-row a{
+      border:1px solid rgba(255,0,51,.34);
+      border-radius:18px;
+      padding:4px;
+      overflow:hidden;
+      flex-shrink:0;
+      transition:transform .28s ease, filter .28s ease;
+    }
+    .video-row a:hover{transform:translateY(-7px) scale(1.025);filter:saturate(1.2)}
+    .video-row a img{border-radius:14px!important}
+
+    .section-head h2::before,
+    .card-header h3::before,
+    .footer-info-block small::before{
+      content:'';
+      display:inline-block;
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:var(--accent);
+      margin-right:10px;
+      vertical-align:middle;
+      animation:neonDotPulse 7s ease-in-out infinite;
+    }
+
+    .btn{
+      border:1px solid rgba(255,255,255,.14)!important;
+      animation:neonPulseSeven 7s ease-in-out infinite;
+    }
+
+    .btn.outline{
+      border-color:rgba(255,0,51,.42)!important;
+      background:rgba(255,0,51,.045)!important;
+    }
+
+    header.site{
+      box-shadow:0 0 34px rgba(255,0,51,.07), inset 0 -1px 0 rgba(255,0,51,.22);
+    }
+
+    .dynamic-marquee{
+      border-color:rgba(255,0,51,.32)!important;
+      box-shadow:0 0 34px rgba(255,0,51,.08);
+    }
+
+    footer{
+      box-shadow:inset 0 1px 0 rgba(255,0,51,.28), 0 -28px 100px rgba(255,0,51,.07);
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .hero .card,.cta .pane,.form-card,.pricing-card,.footer-info-block,.stat,.cooperation-text-container,.video-row a,.service-toggle-trigger,.checkbox-dropdown,.btn{animation:none!important}
+      .hero .card::before,.cta .pane::before,.form-card::before,.pricing-card::before,.footer-info-block::before,.stat::before,.cooperation-text-container::before,.video-row a::before{display:none!important}
+    }
+  </style>
+
+</head>
+<body>
+  <div class="noise-layer" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <header class="site">
+    <div class="container wrap">
+      <a class="brand" href="#top">
+        <span class="log" aria-hidden="true"></span>
+        <span>KXVisuals</span>
+      </a>
+      <nav aria-label="Основна навігація">
+        <ul>
+          <li><a href="#create">Створення відео</a></li>
+          <li><a href="#terms">Умови співпраці</a></li>
+          <li><a href="#works">Приклади робіт</a></li>
+          <li><a href="#pricing">Тарифи</a></li>
+          <li><a href="#order">Замовити монтаж</a></li>
+        </ul>
+      </nav>
+      <div class="social-links" aria-label="Соціальні мережі">
+        <a class="social-btn primary-social" href="https://www.instagram.com/kkossttyaa/" target="_blank" rel="noopener" aria-label="Instagram KXVisuals">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="inner">
+        <div>
+          <span class="pill">AI – символ сучасних технологій у відеомонтажі</span>
+          <h1 id="hero-title">KXVisuals — професійний монтаж <br>та AI-відео</h1>
+          <p>Поєднуємо класичний відеомонтаж і передові штучні технології для створення контенту, який привертає увагу, збільшує охоплення і допомагає продавати.</p>
+          <div class="actions">
+            <a class="btn" href="https://calendly.com" target="_blank" rel="noopener">Забронювати зустріч</a>
+            <a class="btn outline" href="#order">Надіслати запит</a>
+          </div>
+          <div class="social-links hero-socials" aria-label="Мої соцмережі">
+            <a class="social-btn" href="https://www.instagram.com/kkossttyaa/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+              Instagram
+            </a>
+            <a class="social-btn" href="https://www.threads.com/@kkossttyaa" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12.2 21c-5.2 0-8.7-3.6-8.7-9s3.5-9 8.7-9c4 0 6.8 2.1 7.8 5.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M15.6 10.4c-.6-1.3-1.8-2-3.4-2-2 0-3.4 1.2-3.4 3.1s1.4 3.1 3.5 3.1c2.4 0 3.9-1.5 3.9-3.7 0-3.2-2.4-5.2-6-5.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Threads
+            </a>
+            <a class="social-btn" href="https://t.me/kossttyaa" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 4L3.8 10.7c-1.1.4-1.1 1.9.1 2.2l4.1 1.2 1.6 5c.4 1.1 1.8 1.4 2.5.5l2.3-2.9 4.2 3c.9.6 2.1.1 2.3-1L23 5.7C23.2 4.6 22.1 3.6 21 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 14.1L18.7 7.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Telegram
+            </a>
+          </div>
+
+          <div class="stats" role="list" aria-label="Ключові показники">
+            <div class="stat" role="listitem"><div class="v">100+</div><div class="k">Виконаних проєктів</div></div>
+            <div class="stat" role="listitem"><div class="v">2500+</div><div class="k">Змонтованих відео</div></div>
+            <div class="stat" role="listitem"><div class="v">150 тис.+</div><div class="k">Залучених клієнтів</div></div>
+            <div class="stat" role="listitem"><div class="v">3+ роки</div><div class="k">Досвіду</div></div>
+          </div>
+        </div>
+        <div class="art">
+          <div class="card">
+            <img alt="Арт з неоновими відблисками (заглушка)" src="./KXVisuals.jpg" />
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="dynamic-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>AI CONTENT <b>×</b> VIDEO EDITING <b>×</b> REELS <b>×</b> SHORTS <b>×</b> VISUAL PACKAGING <b>×</b>&nbsp;</span>
+        <span>AI CONTENT <b>×</b> VIDEO EDITING <b>×</b> REELS <b>×</b> SHORTS <b>×</b> VISUAL PACKAGING <b>×</b>&nbsp;</span>
+      </div>
+    </div>
+
+
+    <section id="create">
+      <div class="container cta">
+        <div class="pane">
+          <span class="pill">Готові розпочати?</span>
+          <h3>30-хвилинна онлайн-зустріч</h3>
+          <p class="form-meta">Під час дзвінка ми: обговоримо ідею, оцінимо матеріал, складемо план.</p>
+          <p style="margin-top:12px"><a class="btn" href="https://calendly.com" target="_blank" rel="noopener">Забронювати в Calendly</a></p>
+        </div>
+        <div class="pane">
+          <h3>Про компанію</h3>
+          <p>Ми займаємося монтажем та створенням відео за допомогою ШІ. Нам важливо, щоб відео було не просто гарним, а зрозумілим, ефектним і таким, що хочеться дивитися.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="terms"><div class="container"><div class="section-head"><h2>Умови співпраці</h2></div><p class="form-meta">
+      
+      <div class="cooperation-text-container">
+        <p>Ми розпочинаємо роботу над кожним проєктом лише після внесення <strong>передоплати</strong>. Такий підхід є важливим етапом співпраці, адже він підтверджує серйозність намірів замовника та забезпечує взаємну безпеку.</p>
+      
+        <hr style="border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;">
+      
+        <h2>Чому ми працюємо по передоплаті?</h2>
+        <p>Передоплата виконує кілька ключових функцій:</p>
+        <ul class="cooperation-list">
+          <li><strong>Фінансова гарантія для команди.</strong> Вона покриває початкові витрати, необхідні для підготовки та запуску роботи над проєктом (аналіз матеріалів, планування процесу, підготовка інструментів та ресурсів).</li>
+          <li><strong>Резервування часу.</strong> Внесення передоплати гарантує, що наша команда виділяє для вас визначені часові ресурси та зосереджується саме на вашому проєкті, відмовляючись від паралельних завдань.</li>
+          <li><strong>Впевненість у співпраці.</strong> Для замовника передоплата є підтвердженням того, що робота дійсно буде виконана в обумовлені строки та з урахуванням погоджених умов.</li>
+        </ul>
+      
+        <hr style="border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;">
+      
+        <h2>Важливо знати</h2>
+        <p>Звертаємо вашу увагу, що у випадку відмови замовника від проєкту після старту роботи, <strong>передоплата не повертається</strong>. Це пов’язано з тим, що команда вже витратила час, ресурси та частину зусиль на реалізацію початкових етапів завдання.</p>
+        <p>Таким чином, передоплата є запорукою <strong>прозорої та відповідальної співпраці</strong>, де обидві сторони захищені від непередбачуваних ризиків.</p>
+      </div>
+    </p></div></section>
+    
+    <section id="works">
+      <div class="container">
+        <div class="section-head"><h2>Приклади робіт</h2></div>
+        
+          <div class="video-row">
+
+            <!-- YouTube Shorts як прев’ю з посиланням -->
+            <a href="https://youtube.com/shorts/8kmODaPuGTg" target="_blank" rel="noopener">
+              <img 
+                src="https://img.youtube.com/vi/8kmODaPuGTg/hqdefault.jpg" 
+                alt="Переглянути відео на YouTube"
+                style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
+            </a>
+            <a href="https://youtube.com/shorts/_ZP3nNZ2gqc?feature=share" target="_blank" rel="noopener">
+              <img 
+                src="https://img.youtube.com/vi/_ZP3nNZ2gqc/hqdefault.jpg" 
+                alt="Переглянути відео на YouTube"
+                style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
+            </a>
+            <a href="https://youtube.com/shorts/M5Nn5a5JEH0?feature=share" target="_blank" rel="noopener">
+              <img 
+                src="https://img.youtube.com/vi/M5Nn5a5JEH0/hqdefault.jpg" 
+                alt="Переглянути відео на YouTube"
+                style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
+            </a>
+            <a href="https://youtube.com/shorts/xRIZmTFLN38?feature=share" target="_blank" rel="noopener">
+              <img 
+                src="https://img.youtube.com/vi/xRIZmTFLN38/hqdefault.jpg" 
+                alt="Переглянути відео на YouTube"
+                style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
+            </a>
+        </div>
+        
+        <div class="video-row">
+          <a href="https://youtube.com/shorts/GkGHd63wpsE?feature=share" target="_blank" rel="noopener">
+            <img 
+              src="https://img.youtube.com/vi/GkGHd63wpsE/hqdefault.jpg" 
+              alt="Переглянути відео на YouTube"
+              style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
+          </a>
+          <a href="https://youtube.com/shorts/wrmJRO_s6js?feature=share" target="_blank" rel="noopener">
+            <img 
+              src="https://img.youtube.com/vi/wrmJRO_s6js/hqdefault.jpg" 
+              alt="Переглянути відео на YouTube"
+              style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
+          </a>
+          <a href="https://youtube.com/shorts/qe_izijf76g?feature=share" target="_blank" rel="noopener">
+            <img 
+              src="https://img.youtube.com/vi/qe_izijf76g/hqdefault.jpg" 
+              alt="Переглянути відео на YouTube"
+              style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
+          </a>
+          <a href="https://youtube.com/shorts/JdsCZL_Vho0?feature=share" target="_blank" rel="noopener">
+            <img 
+              src="https://img.youtube.com/vi/JdsCZL_Vho0/hqdefault.jpg" 
+              alt="Переглянути відео на YouTube"
+              style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
+          </a>
+        </div>
+        
+      </div>
+    </section>
+    
+    <section id="pricing"><div class="container"><div class="section-head"><h2>Тарифи</h2></div><p class="form-meta">
+      <style>
+        /* Загальний контейнер для обох рядів тарифних планів */
+        .pricing-plans-container {
+          padding: 40px 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column; /* Розміщує ряди вертикально */
+          gap: 40px; /* Відстань між двома рядами */
+        }
+      
+        /* Контейнер для кожного окремого горизонтального ряду */
+        .pricing-row {
+          display: flex;
+          gap: 25px;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: stretch; /* Вирівнює всі картки по висоті найвищої */
+        }
+      
+        /* Стилі для кожної картки тарифу */
+        .pricing-card {
+          background-color: rgba(255, 255, 255, 0.05);
+          -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+          padding: 30px;
+          width: 320px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          color: #ffffff;
+          text-align: left;
+        }
+      
+        /* Стилі, що застосовуються при наведенні курсора на будь-яку картку */
+        .pricing-card:hover {
+          transform: translateY(-5px) scale(1.03);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+          border-color: #e22b2b;
+        }
+      
+        .card-header h3 {
+          font-size: 24px;
+          margin-bottom: 5px;
+        }
+      
+        .card-header p {
+          font-size: 18px;
+          margin-top: 0;
+          font-weight: bold;
+          color: #bbbbbb;
+        }
+        
+        .features-list {
+          list-style: none;
+          padding: 0;
+          margin-top: 15px;
+        }
+      
+        .features-list li {
+          font-size: 16px;
+          color: #dddddd;
+          margin-bottom: 15px;
+          display: flex;
+          align-items: flex-start;
+          line-height: 1.2;
+        }
+      
+        .check-icon {
+          font-size: 20px;
+          margin-right: 10px;
+          color: transparent;
+          text-shadow: 0 0 0 #e22b2b;
+        }
+      
+        /* Адаптивність для мобільних пристроїв */
+        @media (max-width: 768px) {
+          .pricing-plans-container {
+            gap: 20px;
+          }
+          .pricing-row {
+            flex-direction: column;
+            align-items: center;
+          }
+          .pricing-card {
+            width: 90%;
+          }
+        }
+      </style>
+      
+      <section id="pricing">
+        <div class="container">
+          
+          <div class="pricing-plans-container">
+            <div class="pricing-row">
+  
+            <div class="pricing-row">
+              <div class="pricing-card">
+                <div class="card-header">
+                  <h3>Відео до 30 секунд</h3>
+                  <p>300 – 500 грн</p>
+                </div>
+                <ul class="features-list">
+                  <li><i class="check-icon">✓</i>Базова кольорокорекція</li>
+                  <li><i class="check-icon">✓</i>Додавання тексту та титрів</li>
+                  <li><i class="check-icon">✓</i>Динамічні переходи</li>
+                </ul>
+              </div>
+          
+              <div class="pricing-card">
+                <div class="card-header">
+                  <h3>Відео до 1 хвилини</h3>
+                  <p>500 – 800 грн</p>
+                </div>
+                <ul class="features-list">
+                  <li><i class="check-icon">✓</i>Кольорокорекція та грейдинг</li>
+                  <li><i class="check-icon">✓</i>Професійний підбір музики</li>
+                  <li><i class="check-icon">✓</i>Адаптація під різні формати (16:9, 9:16)</li>
+                </ul>
+              </div>
+          
+              <div class="pricing-card">
+                <div class="card-header">
+                  <h3>Відео до 2 хвилин</h3>
+                  <p>1 000 – 1 200 грн</p>
+                </div>
+                <ul class="features-list">
+                  <li><i class="check-icon">✓</i>Повноцінний монтаж, що розкриває ідею</li>
+                  <li><i class="check-icon">✓</i>Комплексна робота зі звуком (шумозаглушення)</li>
+                  <li><i class="check-icon">✓</i>Створення унікальних візуальних ефектів</li>
+                </ul>
+              </div>
+            </div>
+  
+            <div class="pricing-row">
+              <div class="pricing-card">
+                <div class="card-header">
+                  <h3>Відео до 3 хвилин</h3>
+                  <p>1 200 – 1 500 грн</p>
+                </div>
+                <ul class="features-list">
+                  <li><i class="check-icon">✓</i>Монтаж для YouTube або довгих рекламних роликів</li>
+                  <li><i class="check-icon">✓</i>Професійний звуковий дизайн</li>
+                  <li><i class="check-icon">✓</i>Постпродакшн підвищеної складності</li>
+                </ul>
+              </div>
+  
+              <div class="pricing-card">
+                <div class="card-header">
+                  <h3>Відео до 5 хвилин</h3>
+                  <p>1 500 – 1 900 грн</p>
+                </div>
+                <ul class="features-list">
+                  <li><i class="check-icon">✓</i>Деталізований монтаж для інтерв’ю/презентацій</li>
+                  <li><i class="check-icon">✓</i>Інтеграція анімованої інфографіки</li>
+                  <li><i class="check-icon">✓</i>Професійний грейдинг для кінематографічного ефекту</li>
+                </ul>
+              </div>
+          
+              <div class="pricing-card">
+                <div class="card-header">
+                  <h3>Відео до 10 хвилин</h3>
+                  <p>2 800 грн+ (індивідуально)</p>
+                </div>
+                <ul class="features-list">
+                  <li><i class="check-icon">✓</i>Створення повноцінного корпоративного/документального відео</li>
+                  <li><i class="check-icon">✓</i>Складний монтаж з багатьма сценами та ракурсами</li>
+                  <li><i class="check-icon">✓</i>Ретельна робота з архівними матеріалами</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </p></div></section>
+
+    <section id="order">
+      <div class="container">
+        <div class="section-head">
+          <h2>Запит на послуги</h2>
+          <div class="social-links">
+            <a class="social-btn primary-social" href="https://t.me/kossttyaa" target="_blank" rel="noopener">Написати в Telegram</a>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <p class="form-meta">Після надсилання ми зв’яжемося з вами, щоб обговорити деталі та узгодити терміни.</p>
+          <div class="contact-strip">
+            <div>
+              <strong>Швидше відповідаю в соцмережах</strong>
+              <span>Можеш написати напряму в Instagram, Threads або Telegram.</span>
+            </div>
+            <div class="social-links">
+              <a class="social-btn" href="https://www.instagram.com/kkossttyaa/" target="_blank" rel="noopener">Instagram</a>
+              <a class="social-btn" href="https://www.threads.com/@kkossttyaa" target="_blank" rel="noopener">Threads</a>
+              <a class="social-btn" href="https://t.me/kossttyaa" target="_blank" rel="noopener">Telegram</a>
+            </div>
+          </div>
+          <form id="orderForm">
+            <div class="field">
+              <label for="fullName">Повне ім’я <span aria-hidden="true" style="color:#9aa0b4">(обов’язково)</span></label>
+              <input id="fullName" name="fullName" type="text" placeholder="Ім’я" required>
+            </div>
+            <div class="field">
+              <label for="email">Email <span aria-hidden="true" style="color:#9aa0b4">(обов’язково)</span></label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required>
+            </div>
+            
+            <div class="field">
+              <label for="telegram">Telegram</label>
+              <input id="telegram" name="telegram" type="text" placeholder="@username">
+            </div>
+            <div class="field">
+              <label for="videoCount">Кількість відео <span aria-hidden="true" style="color:#9aa0b4"></span></label>
+              <input id="videoCount" name="videoCount" type="number" placeholder="1" min="1" max="999" maxlength="3" required>
+            </div>
+
+            <div class="field">
+              <label for="deadlineDisplay">Дата для старту проєкту</label>
+              <div class="date-input" id="deadlineWrapper">
+                <input id="deadlineDisplay" class="date-display" type="text" placeholder="рррр-мм-дд" readonly aria-haspopup="dialog" aria-expanded="false" autocomplete="off">
+                <input id="deadline" name="deadline" type="hidden">
+                <div class="datepicker" id="deadlinePicker" role="dialog" aria-label="Обрати дату" aria-modal="true">
+                  <div class="dp-title">Оберіть дату</div>
+                  <div class="dp-header">
+                    <div class="dp-nav">
+                      <button type="button" id="dpPrev" aria-label="Попередній місяць">‹</button>
+                      <button type="button" id="dpNext" aria-label="Наступний місяць">›</button>
+                    </div>
+                    <div class="dp-month" id="dpMonthLabel">липень 2024</div>
+                    <div style="width:64px"></div>
+                  </div>
+                  <div class="dp-daynames" aria-hidden="true">
+                    <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Нд</div>
+                  </div>
+                  <div class="dp-grid" id="dpGrid" role="grid" aria-label="Календар"></div>
+                  <div class="dp-actions">
+                    <button class="btn outline" type="button" id="dpClear">Очистити</button>
+                    <button class="btn" type="button" id="dpApply">Готово</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="service-toggle-trigger" id="serviceTrigger" tabindex="0">
+                  Послуга <span aria-hidden="true" style="color:#9aa0b4"></span>
+                  <span class="toggle-arrow">▼</span>
+              </div>
+              
+              <div id="serviceCheckboxes" class="checkbox-dropdown">
+                <label class="checkbox-label"><input type="checkbox" name="service" value="Обговорити під час онлайн-зустрічі у Google Meet" checked> Обговорити під час онлайн-зустрічі у Google Meet</label>
+                <label class="checkbox-label"><input type="checkbox" name="service" value="Відео до 30 секунд"> Відео до 30 секунд</label>
+                <label class="checkbox-label"><input type="checkbox" name="service" value="Відео до 1 хвилини"> Відео до 1 хвилини</label>
+                <label class="checkbox-label"><input type="checkbox" name="service" value="Відео до 2 хвилин"> Відео до 2 хвилин</label>
+                <label class="checkbox-label"><input type="checkbox" name="service" value="Відео до 3 хвилин"> Відео до 3 хвилин</label>
+                <label class="checkbox-label"><input type="checkbox" name="service" value="Відео до 5 хвилин"> Відео до 5 хвилин</label>
+                <label class="checkbox-label"><input type="checkbox" name="service" value="Відео до 10 хвилин"> Відео до 10 хвилин</label>
+              </div>
+            </div>
+            <div class="field">
+              <label for="notes">Побажання</label>
+              <textarea id="notes" name="notes" placeholder="Опишіть задачу, стиль, референс"></textarea>
+            </div>
+
+            <div>
+              <button class="btn" type="submit">Надіслати</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container premium-footer">
+      <div class="footer-top">
+        <div>
+          <p class="eyebrow">KXVisuals / Video Editing / AI Content</p>
+          <h2 class="footer-wordmark">LET’S<br>CREATE</h2>
+          <p class="footer-subtitle">Монтаж, AI-відео та візуальна упаковка контенту для брендів, експертів і блогерів, яким потрібна увага, утримання та сильна подача.</p>
+          <div class="footer-socials" aria-label="Соціальні мережі">
+            <a href="https://www.instagram.com/kkossttyaa/" target="_blank" rel="noopener" aria-label="Instagram">
+              <span>Instagram</span>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+            </a>
+            <a href="https://www.threads.com/@kkossttyaa" target="_blank" rel="noopener" aria-label="Threads">
+              <span>Threads</span>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16.7 10.6c-.3-3.1-2.1-5-5.1-5-3.4 0-5.6 2.6-5.6 6.4 0 4 2.4 6.5 6.1 6.5 3.1 0 5.4-1.7 5.4-4.2 0-2.1-1.6-3.4-4.6-3.4h-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11.2 14.8c1.6 0 2.9-.9 2.9-2.1 0-.9-.7-1.5-1.9-1.5-1.5 0-2.5.9-2.5 2 0 1 .7 1.6 1.5 1.6Z" stroke="currentColor" stroke-width="2"/></svg>
+            </a>
+            <a href="https://t.me/kossttyaa" target="_blank" rel="noopener" aria-label="Telegram">
+              <span>Telegram</span>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 4 3.8 10.8c-1.1.4-1.1 1.9.1 2.2l4.2 1.2 1.6 5c.3 1 1.6 1.2 2.2.4l2.2-2.8 4.3 3.1c.9.6 2.1.1 2.3-1l2.4-13.3C23.3 4.5 22.1 3.6 21 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m8.3 14.1 9.1-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-info">
+          <div class="footer-info-block">
+            <small>Location</small>
+            <strong>Ukraine / Worldwide</strong>
+          </div>
+          <div class="footer-info-block">
+            <small>Contact</small>
+            <strong>@kossttyaa</strong>
+          </div>
+          <div class="footer-info-block">
+            <small>CTA</small>
+            <strong>Пиши «МОНТАЖ» у Direct</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="y"></span> KXVisuals. Усі права захищені.</p>
+        <div class="footer-mini-nav">
+          <a href="#create">Послуги</a>
+          <a href="#works">Роботи</a>
+          <a href="#pricing">Тарифи</a>
+          <a href="#top">Вгору ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script>
+    // ===== Helpers
+    const pad = n => String(n).padStart(2,'0');
+    const fmtISO = d => d ? `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}` : '';
+
+    // ===== DatePicker logic (Monday-first)
+    (function initDatePicker(){
+      const wrapper = document.getElementById('deadlineWrapper');
+      const inputDisplay = document.getElementById('deadlineDisplay');
+      const inputHidden  = document.getElementById('deadline');
+      const popover = document.getElementById('deadlinePicker');
+      const grid = document.getElementById('dpGrid');
+      const monthLabel = document.getElementById('dpMonthLabel');
+      const prevBtn = document.getElementById('dpPrev');
+      const nextBtn = document.getElementById('dpNext');
+      const clearBtn = document.getElementById('dpClear');
+      const applyBtn = document.getElementById('dpApply');
+
+      const today = new Date();
+      // Мінімальна дата — сьогодні (заборона минулих дат)
+      const minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      let viewDate = new Date(minDate);
+      let selected = null;
+
+      function monthNameUA(d){
+        return d.toLocaleString('uk-UA', { month:'long', year:'numeric' });
+      }
+      function startOfMonth(d){ return new Date(d.getFullYear(), d.getMonth(), 1); }
+      function daysInMonth(d){ return new Date(d.getFullYear(), d.getMonth()+1, 0).getDate(); }
+      // Monday-first index
+      function monIndex(day){ return (day + 6) % 7; }
+
+      function open(){
+        popover.classList.add('open');
+        inputDisplay.setAttribute('aria-expanded','true');
+        positionPopover();
+        document.addEventListener('click', onDocClick);
+        document.addEventListener('keydown', onEsc);
+      }
+      function close(){
+        popover.classList.remove('open');
+        inputDisplay.setAttribute('aria-expanded','false');
+        document.removeEventListener('click', onDocClick);
+        document.removeEventListener('keydown', onEsc);
+      }
+      function onDocClick(e){
+        if(!wrapper.contains(e.target)) close();
+      }
+      function onEsc(e){ if(e.key === 'Escape') close(); }
+
+      function positionPopover(){
+        // якщо не влазить праворуч — притиснути до правого краю контейнера
+        const rect = wrapper.getBoundingClientRect();
+        const pw = popover.offsetWidth;
+        const availableRight = window.innerWidth - rect.left;
+        if(availableRight < pw + 16){
+          popover.style.left = 'auto';
+          popover.style.right = '0';
+        }else{
+          popover.style.right = 'auto';
+          popover.style.left = '0';
+        }
+      }
+
+      function render(){
+        monthLabel.textContent = monthNameUA(viewDate);
+        grid.innerHTML = '';
+
+        const som = startOfMonth(viewDate);
+        const offset = monIndex(som.getDay());
+        const dim = daysInMonth(viewDate);
+
+        // Порожні клітини перед 1 числом
+        for(let i=0;i<offset;i++){
+          const empty = document.createElement('div');
+          empty.className = 'dp-cell muted';
+          grid.appendChild(empty);
+        }
+
+        for(let d=1; d<=dim; d++){
+          const cell = document.createElement('div');
+          cell.className = 'dp-cell';
+          cell.textContent = d;
+          const thisDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), d);
+
+          // disabled (попередні дні)
+          if(thisDate < minDate){
+            cell.classList.add('disabled');
+          }else{
+            cell.addEventListener('click', () => {
+              selected = thisDate;
+              inputHidden.value = fmtISO(selected);
+              inputDisplay.value = fmtISO(selected);
+              // для миттєвого вигляду:
+              render();
+            });
+          }
+
+          // selected style
+          if(selected && thisDate.toDateString() === selected.toDateString()){
+            cell.classList.add('selected');
+          }
+
+          grid.appendChild(cell);
+        }
+      }
+
+      prevBtn.addEventListener('click', () => {
+        viewDate.setMonth(viewDate.getMonth()-1);
+        render();
+      });
+      nextBtn.addEventListener('click', () => {
+        viewDate.setMonth(viewDate.getMonth()+1);
+        render();
+      });
+      clearBtn.addEventListener('click', () => {
+        selected = null;
+        inputHidden.value = '';
+        inputDisplay.value = '';
+        render();
+      });
+      applyBtn.addEventListener('click', () => {
+        // якщо нічого не вибрано — встановити сьогодні
+        if(!selected) { selected = new Date(minDate); inputHidden.value = fmtISO(selected); inputDisplay.value = fmtISO(selected); }
+        close();
+      });
+
+      // ВІДКРИТТЯ КАЛЕНДАРЯ ПО КЛІКУ НА DISPLAY INPUT
+      inputDisplay.addEventListener('click', (e) => {
+        e.stopPropagation(); // Запобігаємо закриттю, якщо клік був всередині
+        if(popover.classList.contains('open')) close(); else open();
+      });
+      inputDisplay.addEventListener('focus', open);
+
+      // ініціалізація
+      render();
+      window.addEventListener('resize', positionPopover);
+    })();
+
+    // ===== JS ДЛЯ DROPDOWN ПОСЛУГ (ЧЕКБОКСИ)
+    document.getElementById('serviceTrigger').addEventListener('click', function(e) {
+        e.preventDefault();
+        const checkboxes = document.getElementById('serviceCheckboxes');
+        this.classList.toggle('open');
+        checkboxes.classList.toggle('open');
+        
+        // Додаємо або прибираємо стилі фокусу для тригера
+        if (this.classList.contains('open')) {
+            this.focus();
+        } else {
+            this.blur();
+        }
+    });
+
+    // Рік у футері
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+
+    // ===== ВАЛІДАЦІЯ В РЕАЛЬНОМУ ЧАСІ ДЛЯ КІЛЬКОСТІ ВІДЕО
+    document.getElementById('videoCount').addEventListener('input', function() {
+        // 1. Обмеження довжини до 3 символів (цифр)
+        if (this.value.length > 3) {
+            this.value = this.value.slice(0, 3);
+        }
+        
+        // 2. Обмеження максимального значення до 999
+        let numValue = parseInt(this.value, 10);
+        
+        if (numValue > 999) {
+            this.value = 999;
+        } else if (numValue < 1 && this.value !== '') { // Якщо ввели 0 або від'ємне
+            // залишаємо порожнім, якщо користувач стирає, або ставимо 1
+            this.value = 1;
+        }
+    });
+
+
+    const BOT_TOKEN = "8362496174:AAEB9i_f8Ucy2rVOCspgYD6bxvBmHGLD01A";
+    const CHAT_ID = "6683184573";
+    const URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById("fullName").value;
+      const email = document.getElementById("email").value;
+      const telegram = document.getElementById("telegram").value;
+      const videoCount = document.getElementById("videoCount").value; 
+      const notes = document.getElementById("notes").value;
+      const deadline = document.getElementById("deadline").value;
+      
+      // ЗЧИТУВАННЯ ВИБРАНИХ ЧЕКБОКСІВ ПОСЛУГ
+      const checkedServices = Array.from(document.querySelectorAll('#orderForm input[name="service"]:checked'))
+                                   .map(checkbox => checkbox.value);
+      
+      // Форматування для Telegram: список або "Не вказано"
+      const servicesText = checkedServices.length > 0 
+                           ? checkedServices.map(s => `- ${s}`).join('\n') 
+                           : 'Не вказано';
+
+
+      // Фінальна валідація для кількості відео
+      if (videoCount === "" || parseInt(videoCount, 10) < 1 || parseInt(videoCount, 10) > 999) {
+          alert("Будь ласка, вкажіть кількість відео від 1 до 999.");
+          return;
+      }
+
+      const text = `
+🆕 Новий запит на послугу:
+👤 Повне ім'я: ${fullName}
+📧 Email: ${email}
+📱 Telegram: ${telegram || "Не вказано"}
+🔢 Кількість відео: ${videoCount}
+🎬 Послуга:
+${servicesText}
+📅 Дата для старту проєкту: ${deadline || "Не вказано"}
+📝 Побажання:
+${notes || "Немає"}
+      `;
+
+      fetch(URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          alert("Запит успішно надіслано ✅");
+          document.getElementById("orderForm").reset();
+        } else {
+          alert("Помилка при відправці ❌");
+        }
+      })
+      .catch(err => alert("Помилка: " + err));
+    });
+
+
+    // ===== Premium dynamics: reveal + cursor glow + light parallax
+    (function initPremiumMotion(){
+      const glow = document.querySelector('.cursor-glow');
+      if (glow && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        let x = window.innerWidth / 2, y = window.innerHeight / 2;
+        let tx = x, ty = y;
+        window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; }, {passive:true});
+        function animateGlow(){
+          x += (tx - x) * 0.08; y += (ty - y) * 0.08;
+          glow.style.left = x + 'px'; glow.style.top = y + 'px';
+          requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+      }
+
+      const revealTargets = document.querySelectorAll('section, .stat, .pricing-card, .cta .pane, .form-card, .footer-info-block, .footer-socials a');
+      revealTargets.forEach(el => el.classList.add('reveal'));
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, {threshold: .14, rootMargin: '0px 0px -40px 0px'});
+      revealTargets.forEach(el => io.observe(el));
+
+      document.querySelectorAll('.btn, .social-btn, .footer-socials a').forEach(el => {
+        el.addEventListener('pointermove', (e) => {
+          const r = el.getBoundingClientRect();
+          const mx = e.clientX - r.left - r.width/2;
+          const my = e.clientY - r.top - r.height/2;
+          el.style.transform = `translate(${mx*.05}px, ${my*.08}px) scale(1.025)`;
+        });
+        el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+      });
+    })();
+
+  </script>
+</body>
+</html>
