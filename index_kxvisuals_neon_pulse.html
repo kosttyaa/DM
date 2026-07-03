@@ -533,6 +533,112 @@
   
 
 
+  <style id="terms-style">
+    .terms-lead{
+      max-width:760px;
+      margin:0 0 40px;
+      font-size:clamp(1.1rem, 1.6vw, 1.35rem);
+      line-height:1.55;
+      color:#e8e8ee;
+      font-weight:500;
+    }
+    .terms-list{
+      border-top:1px solid rgba(255,255,255,.14);
+    }
+    .terms-row{
+      display:grid;
+      grid-template-columns:70px 1fr;
+      gap:clamp(16px,3vw,40px);
+      padding:clamp(26px,3.4vw,40px) 0;
+      border-bottom:1px solid rgba(255,255,255,.14);
+    }
+    .terms-num{
+      font-family:var(--font-display);
+      font-size:1.1rem;
+      color:var(--accent);
+    }
+    .terms-row h3{
+      font-family:var(--font-display);
+      font-weight:400;
+      font-size:clamp(1.4rem, 2.6vw, 2.1rem);
+      text-transform:uppercase;
+      letter-spacing:-.02em;
+      line-height:1.05;
+      margin:0 0 10px;
+      color:#fff;
+    }
+    .terms-row p{margin:0;color:var(--muted);font-size:clamp(.95rem,1.2vw,1.1rem);line-height:1.6;max-width:640px}
+    .terms-row.terms-row--accent h3{color:var(--accent)}
+    @media (max-width:600px){
+      .terms-row{grid-template-columns:36px 1fr}
+    }
+  </style>
+
+  <style id="packages-style">
+    /* === Пакети послуг: великі editorial-блоки одна під одною === */
+    .packages-list{
+      display:flex;
+      flex-direction:column;
+      gap:0;
+      max-width:100%;
+      border-top:1px solid rgba(255,255,255,.14);
+    }
+    .package-card{
+      background:#000;
+      border:none;
+      border-bottom:1px solid rgba(255,255,255,.14);
+      color:#fff;
+      overflow:hidden;
+    }
+    .package-main{
+      padding:clamp(28px,4vw,48px) clamp(16px,3vw,10px);
+      display:grid;
+      grid-template-columns:70px 1fr auto;
+      align-items:center;
+      gap:clamp(16px,3vw,40px);
+    }
+    .package-num{
+      font-family:var(--font-display);
+      font-size:1.1rem;
+      color:var(--accent);
+      letter-spacing:.02em;
+    }
+    .package-name{
+      font-family:var(--font-display);
+      font-weight:400;
+      font-size:clamp(1.6rem, 3.4vw, 2.7rem);
+      text-transform:uppercase;
+      letter-spacing:-.02em;
+      line-height:1.02;
+      color:#fff;
+    }
+    .package-sub{color:var(--muted);font-size:clamp(.9rem,1.2vw,1.05rem);margin-top:10px;font-weight:500;max-width:520px}
+    .package-price-block{text-align:right}
+    .package-price{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.6rem);color:var(--accent);white-space:nowrap;text-transform:uppercase;line-height:1}
+    .package-price--tbd{font-size:clamp(1.05rem,1.6vw,1.3rem);letter-spacing:.02em}
+    .package-price-unit{font-family:var(--font-main);font-size:1rem;color:var(--muted);text-transform:none;margin-left:4px}
+
+    /* Панель деталей — швидко розгортається/згортається, чіткий колірний блок без градієнта */
+    .package-details{
+      max-height:0;
+      overflow:hidden;
+      background:var(--accent);
+      color:#000;
+      transition:max-height .35s ease;
+    }
+    .package-details-inner{
+      padding:28px clamp(16px,3vw,10px) 32px;
+    }
+    .package-details p{margin:0;font-weight:600;line-height:1.6;font-size:clamp(1.05rem,1.4vw,1.3rem);color:#000;max-width:760px}
+    .package-card.in-view{background:rgba(255,0,51,.05)}
+    .package-card.in-view .package-name{color:var(--accent)}
+    .package-card.in-view .package-details{max-height:320px}
+    @media (max-width:700px){
+      .package-main{grid-template-columns:40px 1fr;grid-template-rows:auto auto}
+      .package-price-block{grid-column:1 / -1;text-align:left;margin-top:4px}
+    }
+  </style>
+
   <style id="neon-pulse-upgrade">
     /* === Neon Pulse Upgrade: блоки більше не зливаються з фоном === */
     :root{
@@ -636,8 +742,30 @@
       padding:4px;
       overflow:hidden;
       flex-shrink:0;
+      position:relative;
       transition:transform .28s ease, filter .28s ease;
     }
+    .video-row a .play-badge{
+      position:absolute;
+      left:50%;top:50%;
+      transform:translate(-50%,-50%);
+      display:flex;align-items:center;gap:8px;
+      background:rgba(0,0,0,.6);
+      backdrop-filter:blur(4px);
+      border:1px solid rgba(255,255,255,.5);
+      color:#fff;
+      padding:10px 18px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:.82rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      pointer-events:none;
+      transition:transform .2s ease, background .2s ease;
+      z-index:2;
+    }
+    .video-row a .play-badge svg{width:16px;height:16px;flex-shrink:0}
+    .video-row a:hover .play-badge{background:var(--accent);transform:translate(-50%,-50%) scale(1.08)}
     .video-row a:hover{transform:translateY(-7px) scale(1.025);filter:saturate(1.2)}
     .video-row a img{border-radius:14px!important}
 
@@ -696,10 +824,10 @@
       </a>
       <nav aria-label="Основна навігація">
         <ul>
-          <li><a href="#create">Створення відео</a></li>
-          <li><a href="#terms">Умови співпраці</a></li>
           <li><a href="#works">Приклади робіт</a></li>
           <li><a href="#pricing">Тарифи</a></li>
+          <li><a href="#create">Створення відео</a></li>
+          <li><a href="#terms">Умови співпраці</a></li>
           <li><a href="#order">Замовити монтаж</a></li>
         </ul>
       </nav>
@@ -720,8 +848,8 @@
           <h1 id="hero-title">KXVisuals — професійний монтаж <br>та AI-відео</h1>
           <p>Поєднуємо класичний відеомонтаж і передові штучні технології для створення контенту, який привертає увагу, збільшує охоплення і допомагає продавати.</p>
           <div class="actions">
-            <a class="btn" href="https://calendly.com" target="_blank" rel="noopener">Забронювати зустріч</a>
-            <a class="btn outline" href="#order">Надіслати запит</a>
+            <a class="btn" href="#order">Надіслати запит</a>
+            <a class="btn outline" href="https://t.me/kossttyaa" target="_blank" rel="noopener">Написати в Telegram</a>
           </div>
           <div class="social-links hero-socials" aria-label="Мої соцмережі">
             <a class="social-btn" href="https://www.instagram.com/kkossttyaa/" target="_blank" rel="noopener">
@@ -747,7 +875,7 @@
         </div>
         <div class="art">
           <div class="card">
-            <img alt="Арт з неоновими відблисками (заглушка)" src="./KXVisuals.jpg" />
+            <img alt="KXVisuals — приклад візуального стилю монтажу" src="./KXVisuals.jpg" />
 
           </div>
         </div>
@@ -762,44 +890,6 @@
     </div>
 
 
-    <section id="create">
-      <div class="container cta">
-        <div class="pane">
-          <span class="pill">Готові розпочати?</span>
-          <h3>30-хвилинна онлайн-зустріч</h3>
-          <p class="form-meta">Під час дзвінка ми: обговоримо ідею, оцінимо матеріал, складемо план.</p>
-          <p style="margin-top:12px"><a class="btn" href="https://calendly.com" target="_blank" rel="noopener">Забронювати в Calendly</a></p>
-        </div>
-        <div class="pane">
-          <h3>Про компанію</h3>
-          <p>Ми займаємося монтажем та створенням відео за допомогою ШІ. Нам важливо, щоб відео було не просто гарним, а зрозумілим, ефектним і таким, що хочеться дивитися.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="terms"><div class="container"><div class="section-head"><h2>Умови співпраці</h2></div><p class="form-meta">
-      
-      <div class="cooperation-text-container">
-        <p>Ми розпочинаємо роботу над кожним проєктом лише після внесення <strong>передоплати</strong>. Такий підхід є важливим етапом співпраці, адже він підтверджує серйозність намірів замовника та забезпечує взаємну безпеку.</p>
-      
-        <hr style="border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;">
-      
-        <h2>Чому ми працюємо по передоплаті?</h2>
-        <p>Передоплата виконує кілька ключових функцій:</p>
-        <ul class="cooperation-list">
-          <li><strong>Фінансова гарантія для команди.</strong> Вона покриває початкові витрати, необхідні для підготовки та запуску роботи над проєктом (аналіз матеріалів, планування процесу, підготовка інструментів та ресурсів).</li>
-          <li><strong>Резервування часу.</strong> Внесення передоплати гарантує, що наша команда виділяє для вас визначені часові ресурси та зосереджується саме на вашому проєкті, відмовляючись від паралельних завдань.</li>
-          <li><strong>Впевненість у співпраці.</strong> Для замовника передоплата є підтвердженням того, що робота дійсно буде виконана в обумовлені строки та з урахуванням погоджених умов.</li>
-        </ul>
-      
-        <hr style="border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;">
-      
-        <h2>Важливо знати</h2>
-        <p>Звертаємо вашу увагу, що у випадку відмови замовника від проєкту після старту роботи, <strong>передоплата не повертається</strong>. Це пов’язано з тим, що команда вже витратила час, ресурси та частину зусиль на реалізацію початкових етапів завдання.</p>
-        <p>Таким чином, передоплата є запорукою <strong>прозорої та відповідальної співпраці</strong>, де обидві сторони захищені від непередбачуваних ризиків.</p>
-      </div>
-    </p></div></section>
-    
     <section id="works">
       <div class="container">
         <div class="section-head"><h2>Приклади робіт</h2></div>
@@ -808,24 +898,28 @@
 
             <!-- YouTube Shorts як прев’ю з посиланням -->
             <a href="https://youtube.com/shorts/8kmODaPuGTg" target="_blank" rel="noopener">
+              <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>YouTube</span>
               <img 
                 src="https://img.youtube.com/vi/8kmODaPuGTg/hqdefault.jpg" 
                 alt="Переглянути відео на YouTube"
                 style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
             </a>
             <a href="https://youtube.com/shorts/_ZP3nNZ2gqc?feature=share" target="_blank" rel="noopener">
+              <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>YouTube</span>
               <img 
                 src="https://img.youtube.com/vi/_ZP3nNZ2gqc/hqdefault.jpg" 
                 alt="Переглянути відео на YouTube"
                 style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
             </a>
             <a href="https://youtube.com/shorts/M5Nn5a5JEH0?feature=share" target="_blank" rel="noopener">
+              <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>YouTube</span>
               <img 
                 src="https://img.youtube.com/vi/M5Nn5a5JEH0/hqdefault.jpg" 
                 alt="Переглянути відео на YouTube"
                 style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
             </a>
             <a href="https://youtube.com/shorts/xRIZmTFLN38?feature=share" target="_blank" rel="noopener">
+              <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>YouTube</span>
               <img 
                 src="https://img.youtube.com/vi/xRIZmTFLN38/hqdefault.jpg" 
                 alt="Переглянути відео на YouTube"
@@ -835,24 +929,28 @@
         
         <div class="video-row">
           <a href="https://youtube.com/shorts/GkGHd63wpsE?feature=share" target="_blank" rel="noopener">
+              <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>YouTube</span>
             <img 
               src="https://img.youtube.com/vi/GkGHd63wpsE/hqdefault.jpg" 
               alt="Переглянути відео на YouTube"
               style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
           </a>
           <a href="https://youtube.com/shorts/wrmJRO_s6js?feature=share" target="_blank" rel="noopener">
+              <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>YouTube</span>
             <img 
               src="https://img.youtube.com/vi/wrmJRO_s6js/hqdefault.jpg" 
               alt="Переглянути відео на YouTube"
               style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
           </a>
           <a href="https://youtube.com/shorts/qe_izijf76g?feature=share" target="_blank" rel="noopener">
+              <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>YouTube</span>
             <img 
               src="https://img.youtube.com/vi/qe_izijf76g/hqdefault.jpg" 
               alt="Переглянути відео на YouTube"
               style="width:250px; height:444px; border-radius:10px; object-fit:cover; flex-shrink:0;">
           </a>
           <a href="https://youtube.com/shorts/JdsCZL_Vho0?feature=share" target="_blank" rel="noopener">
+              <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>YouTube</span>
             <img 
               src="https://img.youtube.com/vi/JdsCZL_Vho0/hqdefault.jpg" 
               alt="Переглянути відео на YouTube"
@@ -863,186 +961,164 @@
       </div>
     </section>
     
-    <section id="pricing"><div class="container"><div class="section-head"><h2>Тарифи</h2></div><p class="form-meta">
-      <style>
-        /* Загальний контейнер для обох рядів тарифних планів */
-        .pricing-plans-container {
-          padding: 40px 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column; /* Розміщує ряди вертикально */
-          gap: 40px; /* Відстань між двома рядами */
-        }
-      
-        /* Контейнер для кожного окремого горизонтального ряду */
-        .pricing-row {
-          display: flex;
-          gap: 25px;
-          flex-wrap: wrap;
-          justify-content: center;
-          align-items: stretch; /* Вирівнює всі картки по висоті найвищої */
-        }
-      
-        /* Стилі для кожної картки тарифу */
-        .pricing-card {
-          background-color: rgba(255, 255, 255, 0.05);
-          -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-          padding: 30px;
-          width: 320px;
-          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          color: #ffffff;
-          text-align: left;
-        }
-      
-        /* Стилі, що застосовуються при наведенні курсора на будь-яку картку */
-        .pricing-card:hover {
-          transform: translateY(-5px) scale(1.03);
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-          border-color: #e22b2b;
-        }
-      
-        .card-header h3 {
-          font-size: 24px;
-          margin-bottom: 5px;
-        }
-      
-        .card-header p {
-          font-size: 18px;
-          margin-top: 0;
-          font-weight: bold;
-          color: #bbbbbb;
-        }
-        
-        .features-list {
-          list-style: none;
-          padding: 0;
-          margin-top: 15px;
-        }
-      
-        .features-list li {
-          font-size: 16px;
-          color: #dddddd;
-          margin-bottom: 15px;
-          display: flex;
-          align-items: flex-start;
-          line-height: 1.2;
-        }
-      
-        .check-icon {
-          font-size: 20px;
-          margin-right: 10px;
-          color: transparent;
-          text-shadow: 0 0 0 #e22b2b;
-        }
-      
-        /* Адаптивність для мобільних пристроїв */
-        @media (max-width: 768px) {
-          .pricing-plans-container {
-            gap: 20px;
-          }
-          .pricing-row {
-            flex-direction: column;
-            align-items: center;
-          }
-          .pricing-card {
-            width: 90%;
-          }
-        }
-      </style>
-      
-      <section id="pricing">
-        <div class="container">
-          
-          <div class="pricing-plans-container">
-            <div class="pricing-row">
-  
-            <div class="pricing-row">
-              <div class="pricing-card">
-                <div class="card-header">
-                  <h3>Відео до 30 секунд</h3>
-                  <p>450 – 550 грн</p>
-                </div>
-                <ul class="features-list">
-                  <li><i class="check-icon">✓</i>Базова кольорокорекція</li>
-                  <li><i class="check-icon">✓</i>Додавання тексту та титрів</li>
-                  <li><i class="check-icon">✓</i>Динамічні переходи</li>
-                </ul>
+    <section id="pricing">
+      <div class="container">
+        <div class="section-head"><h2>Пакети послуг</h2></div>
+        <p class="form-meta" style="max-width:640px;margin-bottom:28px">
+          Оберіть пакет під ваш обсяг контенту — деталі виїжджають, коли картка перетинає середину екрана.
+        </p>
+
+        <div class="packages-list">
+          <div class="package-card" data-id="single">
+            <div class="package-main">
+              <div class="package-num">01</div>
+              <div>
+                <div class="package-name">Одне відео до 1 хвилини</div>
+                <div class="package-sub">Разовий монтаж, без зобов'язань на майбутнє</div>
               </div>
-          
-              <div class="pricing-card">
-                <div class="card-header">
-                  <h3>Відео до 1 хвилини</h3>
-                  <p>650 – 950 грн</p>
-                </div>
-                <ul class="features-list">
-                  <li><i class="check-icon">✓</i>Кольорокорекція та грейдинг</li>
-                  <li><i class="check-icon">✓</i>Професійний підбір музики</li>
-                  <li><i class="check-icon">✓</i>Адаптація під різні формати (16:9, 9:16)</li>
-                </ul>
-              </div>
-          
-              <div class="pricing-card">
-                <div class="card-header">
-                  <h3>Відео до 2 хвилин</h3>
-                  <p>1 000 – 1 200 грн</p>
-                </div>
-                <ul class="features-list">
-                  <li><i class="check-icon">✓</i>Повноцінний монтаж, що розкриває ідею</li>
-                  <li><i class="check-icon">✓</i>Комплексна робота зі звуком (шумозаглушення)</li>
-                  <li><i class="check-icon">✓</i>Створення унікальних візуальних ефектів</li>
-                </ul>
+              <div class="package-price-block">
+                <div class="package-price">$19</div>
               </div>
             </div>
-  
-            <div class="pricing-row">
-              <div class="pricing-card">
-                <div class="card-header">
-                  <h3>Відео до 3 хвилин</h3>
-                  <p>1 200 – 1 500 грн</p>
-                </div>
-                <ul class="features-list">
-                  <li><i class="check-icon">✓</i>Монтаж для YouTube або довгих рекламних роликів</li>
-                  <li><i class="check-icon">✓</i>Професійний звуковий дизайн</li>
-                  <li><i class="check-icon">✓</i>Постпродакшн підвищеної складності</li>
-                </ul>
+            <div class="package-details">
+              <div class="package-details-inner">
+                <p>Разовий монтаж одного короткого відео до 1 хвилини: кольорокорекція, музика, титри. Гарний варіант, щоб спробувати співпрацю перед більшим обсягом.</p>
               </div>
-  
-              <div class="pricing-card">
-                <div class="card-header">
-                  <h3>Відео до 5 хвилин</h3>
-                  <p>1 500 – 1 900 грн</p>
-                </div>
-                <ul class="features-list">
-                  <li><i class="check-icon">✓</i>Деталізований монтаж для інтерв’ю/презентацій</li>
-                  <li><i class="check-icon">✓</i>Інтеграція анімованої інфографіки</li>
-                  <li><i class="check-icon">✓</i>Професійний грейдинг для кінематографічного ефекту</li>
-                </ul>
+            </div>
+          </div>
+
+          <div class="package-card" data-id="pack5">
+            <div class="package-main">
+              <div class="package-num">02</div>
+              <div>
+                <div class="package-name">Пакет 5 відео до 1 хвилини</div>
+                <div class="package-sub">$17 за відео · $85 за пакет</div>
               </div>
-          
-              <div class="pricing-card">
-                <div class="card-header">
-                  <h3>Відео до 10 хвилин</h3>
-                  <p>2 800 грн+ (індивідуально)</p>
-                </div>
-                <ul class="features-list">
-                  <li><i class="check-icon">✓</i>Створення повноцінного корпоративного/документального відео</li>
-                  <li><i class="check-icon">✓</i>Складний монтаж з багатьма сценами та ракурсами</li>
-                  <li><i class="check-icon">✓</i>Ретельна робота з архівними матеріалами</li>
-                </ul>
+              <div class="package-price-block">
+                <div class="package-price">$17<span class="package-price-unit">/відео</span></div>
+              </div>
+            </div>
+            <div class="package-details">
+              <div class="package-details-inner">
+                <p>5 коротких відео до 1 хвилини кожне. Ціна за одиницю нижча за рахунок обсягу — підходить для регулярного контенту на тиждень-два.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="package-card" data-id="pack10">
+            <div class="package-main">
+              <div class="package-num">03</div>
+              <div>
+                <div class="package-name">Пакет 10+ відео до 1 хвилини</div>
+                <div class="package-sub">Найвигідніша ціна за одиницю контенту</div>
+              </div>
+              <div class="package-price-block">
+                <div class="package-price">$15<span class="package-price-unit">/відео</span></div>
+              </div>
+            </div>
+            <div class="package-details">
+              <div class="package-details-inner">
+                <p>Від 10 відео і більше. Найвигідніша ціна за одиницю — для постійного потоку контенту чи довгострокової співпраці. Кількість і терміни узгоджуємо індивідуально.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="package-card" data-id="weekly">
+            <div class="package-main">
+              <div class="package-num">04</div>
+              <div>
+                <div class="package-name">Ведення сторінки — тиждень</div>
+                <div class="package-sub">3 пости + сторіс та відео на тиждень</div>
+              </div>
+              <div class="package-price-block">
+                <div class="package-price package-price--tbd">Ціну уточнюємо</div>
+              </div>
+            </div>
+            <div class="package-details">
+              <div class="package-details-inner">
+                <p>3 пости, а також сторіс та відео на тиждень. Формат і кількість матеріалів узгоджуємо під вашу нішу — напишіть нам, і порахуємо точну вартість.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="package-card" data-id="monthly">
+            <div class="package-main">
+              <div class="package-num">05</div>
+              <div>
+                <div class="package-name">Ведення сторінки — місяць</div>
+                <div class="package-sub">Сторіс щодня, 5 відео/тиждень, 4 пости</div>
+              </div>
+              <div class="package-price-block">
+                <div class="package-price package-price--tbd">Ціну уточнюємо</div>
+              </div>
+            </div>
+            <div class="package-details">
+              <div class="package-details-inner">
+                <p>Сторіс щодня, 5 відео на тиждень та 4 пости на місяць. Повний цикл ведення сторінки — точну вартість розраховуємо після короткої розмови про ваш проєкт.</p>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </p></div></section>
+
+        <p class="form-meta" style="margin-top:22px;max-width:640px">
+          Точну суму для пакетів ведення сторінки узгоджуємо індивідуально залежно від ніші та обсягу зйомки.
+        </p>
+      </div>
+    </section>
+
+    <section id="create">
+      <div class="container cta">
+        <div class="pane">
+          <span class="pill">Готові розпочати?</span>
+          <h3>Коротка розмова перед стартом</h3>
+          <p class="form-meta">Обговоримо ідею, оцінимо матеріал, складемо план — у Telegram або через форму нижче.</p>
+          <p style="margin-top:12px"><a class="btn" href="https://t.me/kossttyaa" target="_blank" rel="noopener">Написати в Telegram</a></p>
+        </div>
+        <div class="pane">
+          <h3>Про компанію</h3>
+          <p>Ми займаємося монтажем та створенням відео за допомогою ШІ. Нам важливо, щоб відео було не просто гарним, а зрозумілим, ефектним і таким, що хочеться дивитися.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="terms">
+      <div class="container">
+        <div class="section-head"><h2>Умови співпраці</h2></div>
+
+        <p class="terms-lead">Кожен проєкт починається з короткої розмови: обговорюємо ідею, матеріал і терміни, і після цього фіксуємо домовленості передоплатою.</p>
+
+        <div class="terms-list">
+          <div class="terms-row">
+            <div class="terms-num">01</div>
+            <div>
+              <h3>Ваш проєкт у пріоритеті</h3>
+              <p>Ми виділяємо під нього конкретний час у графіку й не беремо паралельних замовлень, що конкурують за цей же дедлайн.</p>
+            </div>
+          </div>
+          <div class="terms-row">
+            <div class="terms-num">02</div>
+            <div>
+              <h3>Старт без затримок</h3>
+              <p>Одразу після оплати починаємо аналіз матеріалів і підготовку — жодного часу не втрачається на очікування.</p>
+            </div>
+          </div>
+          <div class="terms-row">
+            <div class="terms-num">03</div>
+            <div>
+              <h3>Чіткі домовленості</h3>
+              <p>Терміни, обсяг і результат погоджені заздалегідь, тож і ви, і ми точно знаємо, чого очікувати.</p>
+            </div>
+          </div>
+          <div class="terms-row terms-row--accent">
+            <div class="terms-num">04</div>
+            <div>
+              <h3>Якщо плани зміняться</h3>
+              <p>Якщо проєкт скасовується після того, як робота вже почалась, передоплата залишається за виконаний обсяг роботи — вона покриває час і ресурси, вкладені на цьому етапі. Є питання щодо конкретної ситуації — просто напишіть нам.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="order">
       <div class="container">
@@ -1346,6 +1422,41 @@
         }
     });
 
+    // ===== JS ДЛЯ ПАКЕТІВ ПОСЛУГ (модальне вікно з деталями)
+    (function initPackages(){
+      // Картка розгортається, коли перетинає середину екрана під час скролу ВНИЗ,
+      // і лишається розгорнутою, навіть коли їде далі вгору й зникає з екрана.
+      // Згортається тільки тоді, коли ту саму лінію перетинає у зворотному напрямку
+      // (тобто коли скролимо назад ВГОРУ і картка знову проходить середину екрана).
+      const cards = document.querySelectorAll('.package-card');
+      if(!cards.length) return;
+
+      let lastScrollY = window.scrollY;
+      let scrollDir = 'down';
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        scrollDir = y > lastScrollY ? 'down' : (y < lastScrollY ? 'up' : scrollDir);
+        lastScrollY = y;
+      }, { passive: true });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          // Будь-яке спрацювання тут = картка щойно перетнула лінію по центру екрана.
+          if(scrollDir === 'down'){
+            entry.target.classList.add('in-view');
+          } else if(scrollDir === 'up'){
+            entry.target.classList.remove('in-view');
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '-50% 0px -50% 0px', // лінія-тригер точно по центру екрана
+        threshold: 0
+      });
+
+      cards.forEach(card => observer.observe(card));
+    })();
+
     // Рік у футері
     document.getElementById('y').textContent = new Date().getFullYear();
 
@@ -1368,10 +1479,6 @@
         }
     });
 
-
-    const BOT_TOKEN = "8362496174:AAEB9i_f8Ucy2rVOCspgYD6bxvBmHGLD01A";
-    const CHAT_ID = "6683184573";
-    const URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
     document.getElementById("orderForm").addEventListener("submit", function(e) {
       e.preventDefault();
@@ -1399,25 +1506,11 @@
           return;
       }
 
-      const text = `
-🆕 Новий запит на послугу:
-👤 Повне ім'я: ${fullName}
-📧 Email: ${email}
-📱 Telegram: ${telegram || "Не вказано"}
-🔢 Кількість відео: ${videoCount}
-🎬 Послуга:
-${servicesText}
-📅 Дата для старту проєкту: ${deadline || "Не вказано"}
-📝 Побажання:
-${notes || "Немає"}
-      `;
-
-      fetch(URL, {
+      fetch("/api/send-telegram", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: text
+          fullName, email, telegram, videoCount, servicesText, deadline, notes
         })
       })
       .then(res => res.json())
